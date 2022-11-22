@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "217244442171",
+    "project_id": "alarm-lockation",
+    "storage_bucket": "alarm-lockation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217244442171:android:0e63122af35de4f110061e",
+        "android_client_info": {
+          "package_name": "com.example.lockalarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217244442171-624areq6uovdgvl9sjb0uup3flul7gd7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lockalarm",
+            "certificate_hash": "18b7600b33a63acb9441d1a306bf1333819b49b8"
+          }
+        },
+        {
+          "client_id": "217244442171-up1k2ma0mmkj4avf0aoio8abiqfdrit9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWbZ69cAN9gsdukkKfZjYqSIBccMi9q3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217244442171-up1k2ma0mmkj4avf0aoio8abiqfdrit9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
