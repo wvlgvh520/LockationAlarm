@@ -41,29 +41,34 @@ public class AlarmAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {   //onBindViewholder
         Alarm data = arrayList.get(position);
-
         ViewHolder viewHolder = (ViewHolder) holder;
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                arrayList.remove(position);
+                notifyItemRemoved(position);
+                return false;
+            }
+        });
 
 
         viewHolder.location.setText(data.getTv_location());
-        viewHolder.hour.setText(data.getTv_hour());
-        viewHolder.minute.setText(data.getTv_minute());
+        viewHolder.time.setText(data.getTv_time());
         viewHolder.date.setText(data.getTv_date());
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView location;
-        TextView hour;
-        TextView minute;
+        TextView time;
         TextView date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.location = itemView.findViewById(R.id.textView_location);
-            this.hour = itemView.findViewById(R.id.tv_hour);
-            this.minute = itemView.findViewById(R.id.tv_minute);
+            this.time = itemView.findViewById(R.id.tv_time_item);
             this.date = itemView.findViewById(R.id.tv_date);
 
         }

@@ -48,28 +48,13 @@
         android:layout_marginVertical="30dp">
 
         <TextView
-            android:id="@+id/tv_hour"
+            android:id="@+id/tv_time_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gmarket_bold"
-            android:text="13"
+            android:text="13:00"
             android:textColor="#D92D2D2D"
             android:textSize="35dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=":"
-            android:fontFamily="@font/gmarket_bold"
-            android:textColor="#D92D2D2D"
-            android:textSize="35dp"/>
-        <TextView
-            android:id="@+id/tv_minute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00"
-            android:fontFamily="@font/gmarket_bold"
-            android:textColor="#D92D2D2D"
-            android:textSize="35dp"/>
     </LinearLayout>
 
 

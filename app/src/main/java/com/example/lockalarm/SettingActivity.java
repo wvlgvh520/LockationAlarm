@@ -17,6 +17,8 @@ public class SettingActivity extends AppCompatActivity {
     Button btn_cancel, btn_save;
     String tv_hour="00", tv_minute="00";
 
+    TextView text_id, text_location, text_time, text_date;
+    String id, location, time, date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,11 @@ public class SettingActivity extends AppCompatActivity {
 
         Context context = getApplicationContext();
         Intent intent = getIntent();
+
+        id = intent.getExtras().getString("id");
+        location = intent.getExtras().getString("location");
+        time = intent.getExtras().getString("time");
+        date = intent.getExtras().getString("date");
 
 
         timePicker = findViewById(R.id.timepicker);
@@ -57,12 +64,12 @@ public class SettingActivity extends AppCompatActivity {
 
                 //조건문으로 날짜선택해야 저장되도록 할것!
                 String time = tv_time.getText().toString();
-                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                Intent intent = new Intent();
                 intent.putExtra("location", "dummy");
                 intent.putExtra("timeH", tv_hour);
                 intent.putExtra("timeM", tv_minute);
                 intent.putExtra("date", "00월 00일 (목)");
-                startActivity(intent);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
