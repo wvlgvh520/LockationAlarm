@@ -1,13 +1,11 @@
 package com.example.lockalarm;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,36 +17,41 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.lockalarm.RoomDao.Alarm;
+import com.example.lockalarm.RoomDao.AppDatabase;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView menu, add;
+    ImageView menu, btn_add;
+    RecyclerView recyclerView;
 
-    static final int REQ_ALARM = 1;
-    private ArrayList<Alarm> arrayList;
-    TimePicker timePicker;
+    List<Alarm> arrayList = new ArrayList<>();
+    AppDatabase database;
+    AlarmAdapter alarmAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.rcv_alarmList);
+        recyclerView = findViewById(R.id.rcv_alarmList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        arrayList = new ArrayList<>();
-       // arrayList.add(new Alarm("[더미]기숙사", "11월 26일 (토)", "12", "35", true));
+        database = AppDatabase.getDBInstance(this);
+        arrayList = database.alarmDao().getAllalarm();
 
-        AlarmAdapter adapter = new AlarmAdapter(arrayList);
-        recyclerView.setAdapter(adapter);
-
+        alarmAdapter = new AlarmAdapter(MainActivity.this, arrayList);
+        recyclerView.setAdapter(alarmAdapter);
 
         //알람 추가 버튼 클릭함수
-        add = findViewById(R.id.btn_addAlarm);
-        add.setOnClickListener(new View.OnClickListener() {
+        btn_add = findViewById(R.id.btn_addAlarm);
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                //원래 세팅에서 만지려했는데 잘 안되갖고 다이얼로그 띄울것!
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
 
@@ -86,12 +89,14 @@ public class MainActivity extends AppCompatActivity {
                         String strTime = tv_time.getText().toString();
                         String strDate = tv_date.getText().toString();
 
-                        Alarm alarmList = new Alarm(strLocation,strDate,strTime, true);
-                        arrayList.add(alarmList);
-
-                        adapter.notifyDataSetChanged();
+                        Alarm alarm = new Alarm(strDate,strTime, strLocation);
+                        database.alarmDao().insertAlarm(alarm);
 
                         dialog.dismiss();
+
+                        arrayList.clear();
+                        arrayList.addAll(database.alarmDao().getAllalarm());
+                        alarmAdapter.notifyDataSetChanged();
                     }
                 });
                 dialog.show();
