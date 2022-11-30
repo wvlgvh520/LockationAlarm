@@ -11,17 +11,17 @@ import java.util.List;
 @Dao
 public interface AlarmDao {
 
-    @Query("Select * From alarm")
-    List<Alarm> getAllalarm();
+    @Query("Select * From AlarmData")
+    List<AlarmData> getAllalarm();
 
     @Insert
-    void insertAlarm(Alarm alarm);
+    void insertAlarm(AlarmData alarmData);
 
     @Delete
-    void alarmDelete(Alarm alarm);
+    void alarmDelete(AlarmData alarmData);
 
     @Update
-    void alarmUpdate(Alarm alarm);
+    void alarmUpdate(AlarmData alarmData);
 
 
 

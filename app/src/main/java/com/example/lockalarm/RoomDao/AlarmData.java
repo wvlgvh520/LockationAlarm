@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class Alarm implements Serializable {
+public class AlarmData implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int alarm_id;
@@ -21,7 +21,7 @@ public class Alarm implements Serializable {
     @ColumnInfo(name = "alarm_location")
     public String alarm_location;
 
-    public Alarm(String alarm_time, String alarm_date, String alarm_location) {
+    public AlarmData(String alarm_time, String alarm_date, String alarm_location) {
         this.alarm_time = alarm_time;
         this.alarm_date = alarm_date;
         this.alarm_location = alarm_location;

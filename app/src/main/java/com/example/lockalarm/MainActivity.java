@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,17 +22,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.lockalarm.RoomDao.Alarm;
+import com.example.lockalarm.RoomDao.AlarmData;
 import com.example.lockalarm.RoomDao.AppDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView menu, btn_add;
-    RecyclerView recyclerView;
 
-    List<Alarm> arrayList = new ArrayList<>();
+    ImageView btn_add;
+    RecyclerView recyclerView;
+    public static final String TAG = "MAIN";
+    List<AlarmData> arrayList = new ArrayList<>();
     AppDatabase database;
     AlarmAdapter alarmAdapter;
 
@@ -89,11 +96,9 @@ public class MainActivity extends AppCompatActivity {
                         String strTime = tv_time.getText().toString();
                         String strDate = tv_date.getText().toString();
 
-                        Alarm alarm = new Alarm(strDate,strTime, strLocation);
-                        database.alarmDao().insertAlarm(alarm);
-
+                        AlarmData alarmData = new AlarmData(strTime, strDate, strLocation);
+                        database.alarmDao().insertAlarm(alarmData);
                         dialog.dismiss();
-
                         arrayList.clear();
                         arrayList.addAll(database.alarmDao().getAllalarm());
                         alarmAdapter.notifyDataSetChanged();
@@ -104,49 +109,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-/*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("location");
-        String timeH = intent.getStringExtra("timeH");
-        String timeM = intent.getStringExtra("timeM");
-        String date = intent.getStringExtra("date");
 
-        arrayList.add(new Alarm(location, date, timeH, timeM, true));
-        AlarmAdapter adapter = new AlarmAdapter(arrayList);
-
-        adapter.notifyDataSetChanged();
-
-    }
-*/
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        if (requestCode == REQ_ALARM) {
-            if (resultCode == RESULT_OK) {
-                return;
-            }
-            String sendLocation = intent.getExtras().getString("location");
-            tv_location.setText(sendLocation);
-            String sendTimeH = intent.getExtras().getString("timeH");
-            tv_timeH.setText(sendTimeH);
-            String sendTimeM = intent.getExtras().getString("timeM");
-            tv_timeM.setText(sendTimeM);
-            String sendDate = intent.getExtras().getString("date");
-            tv_date.setText(sendDate);
-
-            arrayList.add(new Alarm(sendLocation, sendDate, sendTimeH, sendTimeM, true));
-
-            RecyclerView recyclerView = findViewById(R.id.rcv_alarmList);
-            AlarmAdapter adapter = new AlarmAdapter(arrayList);
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-        }
-    }
-    */
 }
